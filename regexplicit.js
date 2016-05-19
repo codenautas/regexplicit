@@ -45,10 +45,10 @@ Regexplicit.variables.replacer = function replacer(string, replacer){
 /// DESCRIPCIÓN: identificar el operador = para poder reemplazarlo por ==, logra distinguir el = de un != >= == etc. 
 /// ISSUES: no reconoce strings, ni comentarios
 /// USO: detecta izquierda, operador(=), derecha
-Regexplicit.operadorIgual = /(^|[^!><=])(=)($|[^=])/g;
+Regexplicit.operatorEqual = /(^|[^!><=])(=)($|[^=])/g;
 /*
-Regexplicit.operadorIgual.replacer = function replacer(string, detectedReplacer){
-    return string.replace(Regexplicit.operadorIgual, function(match, left, detected, right){
+Regexplicit.operatorEqual.replacer = function replacer(string, detectedReplacer){
+    return string.replace(Regexplicit.operatorEqual, function(match, left, detected, right){
         return left+detectedReplacer(detected)+right;
     });
 }

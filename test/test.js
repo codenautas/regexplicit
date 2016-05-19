@@ -33,9 +33,9 @@ describe("regexps", function(){
         {expression:"a=b && b=c"         , expect: "a[=]b && b[=]c"},
     ].forEach(function(fixture){
         it("matchs = in expression, fixture: "+JSON.stringify(fixture), function(){
-            // eval(assert(fixture.expression.replace(operadorIgual, function(match){ return "["+match+"]"; }) === fixture.expect));
-            expect(rgl.operadorIgual.replacer(fixture.expression,function(match){ return "["+match+"]"; })).to.eql(fixture.expect);
-            expect(rgl.operadorIgual.replacer(fixture.expression,"[=]")).to.eql(fixture.expect);
+            // eval(assert(fixture.expression.replace(operatorEqual, function(match){ return "["+match+"]"; }) === fixture.expect));
+            expect(rgl.operatorEqual.replacer(fixture.expression,function(match){ return "["+match+"]"; })).to.eql(fixture.expect);
+            expect(rgl.operatorEqual.replacer(fixture.expression,"[=]")).to.eql(fixture.expect);
         });
     });
 });
