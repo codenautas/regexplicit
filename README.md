@@ -1,5 +1,5 @@
 # regexplicit
-reg explicit or regexp licit?
+Useful regular expression's catalog
 
 # Install
 ```sh

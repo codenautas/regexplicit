@@ -1,6 +1,10 @@
 <!--multilang v0 es:LEEME.md en:README.md -->
 # regexplicit
-reg explicit or regexp licit?
+<!--lang:es-->
+Catálogo de expresiones regulares útiles
+<!--lang:en--]
+Useful regular expression's catalog
+[!--lang:*-->
 
 <!--lang:es-->
 # Instalación

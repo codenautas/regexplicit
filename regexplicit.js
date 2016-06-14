@@ -58,7 +58,7 @@ RegExp.prototype.replacer = function replacer(string, detectedReplacer){
     return string.replace(this, function(match, left, detected, right){
         return left+(typeof detectedReplacer === 'string'?detectedReplacer:detectedReplacer(detected))+right;
     });
-}
+};
 
 return Regexplicit;
 
