@@ -1,23 +1,23 @@
 {
   "name": "regexplicit",
   "description": "reg explicit or regexp licit?",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Codenautas <codenautas@googlegroups.com>",
   "repository": "codenautas/regexplicit",
   "license": "MIT",
   "main": "regexplicit.js",
   "files": ["regexplicit.js"],
   "dependencies": {
-    "fs-extra": "~0.30.0",
+    "fs-extra": "~1.0.0",
     "fs-promise": "~0.5.0",
     
-    "best-globals": "~0.5.0",
+    "best-globals": "~0.5.3",
     "best-promise": "~0.2.4"
   },
   "devDependencies": {
     "expect.js": "~0.3.1",
     "istanbul": "~0.4.5",
-    "mocha": "~3.0.2",
+    "mocha": "~3.1.2",
     
     "self-explain": "0.10.8"
   },
