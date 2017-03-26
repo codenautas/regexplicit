@@ -54,6 +54,15 @@ Regexplicit.operatorEqual.replacer = function replacer(string, detectedReplacer)
 }
 */
 
+
+/// DESCRIPCIÓN: identificar un trimestre (quarter) en números arábigos o romanos
+/// USO: detecta 1: año, 2: trimestre, 3: 1er trimestre en romano, 4: 2do trimestre en romano, etc
+Regexplicit.yearTrim = /^\s*(\d+)\s*(?:(?:q|t|tr|tri|trim)\s*([1-4])|(?:[-/]?)\s*(?:(I)|(II)|(III)|(IV))\.?)\s*$/i;
+
+/// DESCRIPCIÓN: identificar un trimestre (quarter) en números arábigos o romanos
+/// USO: detecta como yearTrim pero el año al final
+Regexplicit.trimYear = /^\s*(?:([1-4])\s*(?:q|t|tr|tri|trim)|(?:(I)|(II)|(III)|(IV))\.?\s*(?:[-/]?))\s*(\d+)\s*$/i;
+
 RegExp.prototype.replacer = function replacer(string, detectedReplacer){
     return string.replace(this, function(match, left, detected, right){
         return left+(typeof detectedReplacer === 'string'?detectedReplacer:detectedReplacer(detected))+right;
