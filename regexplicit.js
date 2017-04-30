@@ -1,6 +1,4 @@
 "use strict";
-/*jshint eqnull:true */
-/*jshint node:true */
 
 (function codenautasModuleDefinition(root, name, factory) {
     /* global define */
@@ -34,25 +32,13 @@ var Regexplicit = {};
 /// ISSUES: no reconoce strings, ni comentarios
 /// USO: directo
 Regexplicit.variables = /(\b)([A-Za-z_]\w*)(?!\s*\()(\b)/g;
-/*
-Regexplicit.variables.replacer = function replacer(string, replacer){
-    return string.replace(Regexplicit.variables, function(match){
-        return replacer(match);
-    });
-};
-*/
+Regexplicit.variables.replacer = replacer;
 
 /// DESCRIPCIÓN: identificar el operador = para poder reemplazarlo por ==, logra distinguir el = de un != >= == etc. 
 /// ISSUES: no reconoce strings, ni comentarios
 /// USO: detecta izquierda, operador(=), derecha
 Regexplicit.operatorEqual = /(^|[^!><=])(=)($|[^=])/g;
-/*
-Regexplicit.operatorEqual.replacer = function replacer(string, detectedReplacer){
-    return string.replace(Regexplicit.operatorEqual, function(match, left, detected, right){
-        return left+detectedReplacer(detected)+right;
-    });
-}
-*/
+Regexplicit.operatorEqual.replacer = replacer;
 
 
 /// DESCRIPCIÓN: identificar un trimestre (quarter) en números arábigos o romanos
@@ -72,11 +58,11 @@ Regexplicit.yearSem = /^\s*(\d+)\s*(?:s|sem[a-z]*)\s*(?:([1-4])|(I)|(II))\s*$/i;
 /// USO: detecta como yearTrim pero el año al final
 Regexplicit.semYear = /^\s*(?:([1-4])|(I)|(II))\s*(?:s|sem[a-z]*)\s*(\d+)\s*$/i;
 
-RegExp.prototype.replacer = function replacer(string, detectedReplacer){
+function replacer(string, detectedReplacer){
     return string.replace(this, function(match, left, detected, right){
         return left+(typeof detectedReplacer === 'string'?detectedReplacer:detectedReplacer(detected))+right;
     });
-};
+}
 
 return Regexplicit;
 
