@@ -89,13 +89,15 @@ describe("regexps", function(){
     describe("detects sem-year", function(){
         [
             {expression:" 1 S 2010" , expect: ["1", undefined, undefined, "2010"]},
+            {expression:"2s2"       , expect: null},
             {expression:"2s2010"    , expect: ["2", undefined, undefined, "2010"]},
             {expression:"2sem2011"  , expect: ["2", undefined, undefined, "2011"]},
             {expression:"I sem 2012", expect: [undefined, "I", undefined, "2012"]},
             {expression:"II semestre 2011", expect: [undefined, undefined, "II", "2011"]},
         ].forEach(function(fixture){
             it(fixture.expression, function(){
-                expect(fixture.expression.match(rgl.semYear).slice(1)).to.eql(fixture.expect);
+                var match=fixture.expression.match(rgl.semYear);
+                expect(match && match.slice(1)).to.eql(fixture.expect);
             });
         });
     })
