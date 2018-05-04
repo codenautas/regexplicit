@@ -101,4 +101,20 @@ describe("regexps", function(){
             });
         });
     })
+    describe("detects resources in URL", function(){
+        [
+            {expression:"menu"              , expect: true },
+            {expression:"./algo.x/page03"   , expect: true },
+            {expression:"/home/dir/page"    , expect: true },
+            {expression:"estilo.css"        , expect: false},
+            {expression:"estilo/pepe#aca.2" , expect: true },
+            {expression:"/x?img=x.png"      , expect: true },
+            {expression:"/x/x.png"          , expect: false},
+        ].forEach(function(fixture){
+            it(fixture.expression, function(){
+                var obtained=rgl.detectUrlWithoutResources.test(fixture.expression);
+                expect(obtained).to.eql(fixture.expect);
+            });
+        });
+    })
 });

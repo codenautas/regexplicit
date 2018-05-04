@@ -58,6 +58,8 @@ Regexplicit.yearSem = /^\s*(\d\d+)\s*(?:s|sem[a-z]*)\s*(?:([1-4])|(I)|(II))\s*$/
 /// USO: detecta como yearTrim pero el año al final
 Regexplicit.semYear = /^\s*(?:([1-4])|(I)|(II))\s*(?:s|sem[a-z]*)\s*(\d\d+)\s*$/i;
 
+Regexplicit.detectUrlWithoutResources = /^([^?#]*\/)*[^./?#]*([?#].*)?$/;
+
 function replacer(string, detectedReplacer){
     return string.replace(this, function(match, left, detected, right){
         return left+(typeof detectedReplacer === 'string'?detectedReplacer:detectedReplacer(detected))+right;
