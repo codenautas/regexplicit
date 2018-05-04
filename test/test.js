@@ -110,6 +110,8 @@ describe("regexps", function(){
             {expression:"estilo/pepe#aca.2" , expect: true },
             {expression:"/x?img=x.png"      , expect: true },
             {expression:"/x/x.png"          , expect: false},
+            {expression:"/this-page?factor=3.141", expect: true},
+            {expression:"./base/this-page?factor=3.141", expect: true},
         ].forEach(function(fixture){
             it(fixture.expression, function(){
                 var obtained=rgl.detectUrlWithoutResources.test(fixture.expression);
