@@ -17,7 +17,7 @@
     "self-explain": "0.10.16"
   },
   "engines": {
-    "node": ">= 0.12"
+    "node": ">= 4"
   },
   "scripts": {
     "test": "mocha --reporter spec --bail --check-leaks test/",
