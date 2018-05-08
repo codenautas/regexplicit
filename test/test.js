@@ -100,7 +100,7 @@ describe("regexps", function(){
                 expect(match && match.slice(1)).to.eql(fixture.expect);
             });
         });
-    })
+    });
     describe("detects resources in URL", function(){
         [
             {expression:"menu"              , expect: true },
@@ -112,10 +112,19 @@ describe("regexps", function(){
             {expression:"/x/x.png"          , expect: false},
             {expression:"/this-page?factor=3.141", expect: true},
             {expression:"./base/this-page?factor=3.141", expect: true},
+            // empties:
+            {expression:"/"    , expect: true, expectNE:false},
+            {expression:"./"   , expect: true, expectNE:false},
+            {expression:""     , expect: true, expectNE:false},
+            {expression:"/?ok" , expect: true, expectNE:false},
         ].forEach(function(fixture){
-            it(fixture.expression, function(){
+            it(fixture.expression+" may be empty", function(){
                 var obtained=rgl.detectUrlWithoutResources.test(fixture.expression);
                 expect(obtained).to.eql(fixture.expect);
+            });
+            it(fixture.expression+" non empty", function(){
+                var obtained=rgl.detectNonEmptyUrlWithoutResources.test(fixture.expression);
+                expect(obtained).to.eql('expectNE' in fixture?fixture.expectNE:fixture.expect);
             });
         });
     })

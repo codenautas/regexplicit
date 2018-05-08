@@ -1,0 +1,3 @@
+{
+    "window.title": "//re ${dirty}${separator}${rootName}${separator}${activeEditorShort}"
+}

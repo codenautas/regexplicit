@@ -59,6 +59,7 @@ Regexplicit.yearSem = /^\s*(\d\d+)\s*(?:s|sem[a-z]*)\s*(?:([1-4])|(I)|(II))\s*$/
 Regexplicit.semYear = /^\s*(?:([1-4])|(I)|(II))\s*(?:s|sem[a-z]*)\s*(\d\d+)\s*$/i;
 
 Regexplicit.detectUrlWithoutResources = /^([^?#]*\/)*[^./?#]*([?#].*)?$/;
+Regexplicit.detectNonEmptyUrlWithoutResources = /^([^?#]*\/)*[^./?#]+([?#].*)?$/;
 
 function replacer(string, detectedReplacer){
     return string.replace(this, function(match, left, detected, right){
