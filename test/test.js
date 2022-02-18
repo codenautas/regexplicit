@@ -3,6 +3,7 @@
 var assert = require('self-explain').assert;
 var expect = require('expect.js');
 var rgl = require('../regexplicit.js');
+var fs = require('fs');
 
 describe("regexps", function(){
     [
@@ -129,3 +130,15 @@ describe("regexps", function(){
         });
     })
 });
+
+describe("domicilios", function(){
+    var content = fs.readFileSync('test/fixtures-domicilio.txt', 'utf-8');
+    var domicilios = content.split(/\r?\n/).map(line=>line.split(/[\]\[]/)); 
+    domicilios.forEach(([calle, sep1, numero, sep2, resto])=>{
+        var domicilio = `${calle??''}${sep1??''}${numero??''}${sep2??''}${resto??''}`;
+        it(domicilio, function(){
+            var result = domicilio.match(rgl.partesDomicilio).slice(1); // descarto el domicilio, me quedo con las partes
+            expect(result).to.eql([calle, numero||undefined, resto||undefined]);
+        });
+    })
+})

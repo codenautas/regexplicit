@@ -61,6 +61,11 @@ Regexplicit.semYear = /^\s*(?:([1-4])|(I)|(II))\s*(?:s|sem[a-z]*)\s*(\d\d+)\s*$/
 Regexplicit.detectUrlWithoutResources = /^([^?#]*\/)*[^./?#]*([?#].*)?$/;
 Regexplicit.detectNonEmptyUrlWithoutResources = /^([^?#]*\/)*[^./?#]+([?#].*)?$/;
 
+/// DESCRIPCION: separar de un domicilio el nombre de la calle, del número, del resto de domicilio o indicar si es especial
+/// USO: un domicilio todo junto se separa en partes: calle, número y resto
+Regexplicit.partesDomicilio = /^([^0-9]*[^0-9 ])(?:\s+(\d+))?\s*(\S.*)?$/;
+Regexplicit.domicilioEspecial = /^((Mza|Mz|manzana|villa|manz|calle|M|s\/n|):? ?[0-9]|barrio|b°)/;
+
 function replacer(string, detectedReplacer){
     return string.replace(this, function(match, left, detected, right){
         return left+(typeof detectedReplacer === 'string'?detectedReplacer:detectedReplacer(detected))+right;
