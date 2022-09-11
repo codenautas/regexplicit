@@ -136,8 +136,8 @@ describe("domicilios", function(){
     var domicilios = content.split(/\r?\n/).map(line=>line.split(/[\]\[]/)); 
     domicilios.forEach(([calle, sep1, numero, sep2, resto])=>{
         var domicilio = `${calle??''}${sep1??''}${numero??''}${sep2??''}${resto??''}`;
+        var result = domicilio.match(rgl.partesDomicilio).slice(1); // descarto el domicilio, me quedo con las partes
         it(domicilio, function(){
-            var result = domicilio.match(rgl.partesDomicilio).slice(1); // descarto el domicilio, me quedo con las partes
             expect(result).to.eql([calle, numero||undefined, resto||undefined]);
         });
     })
