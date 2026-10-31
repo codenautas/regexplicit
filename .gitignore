@@ -37,3 +37,9 @@ local-*
 *-local.*
 
 package-lock.json
+
+# nyc test coverage
+.nyc_output
+
+# local work of Claude
+.claude/

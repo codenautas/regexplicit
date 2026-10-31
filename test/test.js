@@ -1,9 +1,8 @@
 "use strict";
 
-var assert = require('self-explain').assert;
-var expect = require('expect.js');
-var rgl = require('../regexplicit.js');
-var fs = require('fs');
+const expect = require('expect.js');
+const rgl = require('../regexplicit.js');
+const fs = require('node:fs');
 
 describe("regexps", function(){
     [
@@ -97,7 +96,7 @@ describe("regexps", function(){
             {expression:"II semestre 2011", expect: [undefined, undefined, "II", "2011"]},
         ].forEach(function(fixture){
             it(fixture.expression, function(){
-                var match=fixture.expression.match(rgl.semYear);
+                const match=fixture.expression.match(rgl.semYear);
                 expect(match && match.slice(1)).to.eql(fixture.expect);
             });
         });
@@ -111,6 +110,8 @@ describe("regexps", function(){
             {expression:"estilo/pepe#aca.2" , expect: true },
             {expression:"/x?img=x.png"      , expect: true },
             {expression:"/x/x.png"          , expect: false},
+            {expression:"/a//b"             , expect: true },
+            {expression:"/a/b.c/d"          , expect: true },
             {expression:"/this-page?factor=3.141", expect: true},
             {expression:"./base/this-page?factor=3.141", expect: true},
             // empties:
@@ -120,23 +121,38 @@ describe("regexps", function(){
             {expression:"/?ok" , expect: true, expectNE:false},
         ].forEach(function(fixture){
             it(fixture.expression+" may be empty", function(){
-                var obtained=rgl.detectUrlWithoutResources.test(fixture.expression);
+                const obtained=rgl.detectUrlWithoutResources.test(fixture.expression);
                 expect(obtained).to.eql(fixture.expect);
             });
             it(fixture.expression+" non empty", function(){
-                var obtained=rgl.detectNonEmptyUrlWithoutResources.test(fixture.expression);
+                const obtained=rgl.detectNonEmptyUrlWithoutResources.test(fixture.expression);
                 expect(obtained).to.eql('expectNE' in fixture?fixture.expectNE:fixture.expect);
+            });
+        });
+    })
+    describe("detects resources in URL without catastrophic backtracking", function(){
+        [
+            {expression:"/a"+"/".repeat(5000)+"." , expect:false},
+            {expression:"/a"+"/b".repeat(5000)+".", expect:false},
+            {expression:"/a"+"/b".repeat(5000)    , expect:true },
+        ].forEach(function(fixture){
+            ["detectUrlWithoutResources", "detectNonEmptyUrlWithoutResources"].forEach(function(name){
+                it(name+" answers quickly for a URL of "+fixture.expression.length+" characters", function(){
+                    const start=Date.now();
+                    expect(rgl[name].test(fixture.expression)).to.eql(fixture.expect);
+                    expect(Date.now()-start).to.be.below(100);
+                });
             });
         });
     })
 });
 
 describe("domicilios", function(){
-    var content = fs.readFileSync('test/fixtures-domicilio.txt', 'utf-8');
-    var domicilios = content.split(/\r?\n/).map(line=>line.split(/[\]\[]/)); 
+    const content = fs.readFileSync('test/fixtures-domicilio.txt', 'utf-8');
+    const domicilios = content.split(/\r?\n/).filter(line=>line!=='').map(line=>line.split(/[\]\[]/));
     domicilios.forEach(([calle, sep1, numero, sep2, resto])=>{
-        var domicilio = `${calle??''}${sep1??''}${numero??''}${sep2??''}${resto??''}`;
-        var result = domicilio.match(rgl.partesDomicilio).slice(1); // descarto el domicilio, me quedo con las partes
+        const domicilio = `${calle??''}${sep1??''}${numero??''}${sep2??''}${resto??''}`;
+        const result = domicilio.match(rgl.partesDomicilio).slice(1); // descarto el domicilio, me quedo con las partes
         it(domicilio, function(){
             expect(result).to.eql([calle, numero||undefined, resto||undefined]);
         });
